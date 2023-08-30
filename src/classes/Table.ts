@@ -1,7 +1,7 @@
 type TId = { id: number }
 
-export default class Table<T extends TId> {
-  private data: T[]
+export default abstract class Table<T extends TId> {
+  protected data: T[]
 
   constructor() {
     this.data = []

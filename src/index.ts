@@ -1,12 +1,9 @@
+import Countries from "./classes/Countries";
 import Table from "./classes/Table";
 
-type Country = {
-  id: number,
-  name: string,
-  continent: string
-}
 
-const countries = new Table<Country>
+
+const countries = new Countries()
 
 countries.create({ id: 1, name: 'Brasil', continent: 'América Latina' })
 countries.create({ id: 2, name: 'Burkina Faso', continent: 'África' })
@@ -20,3 +17,5 @@ console.log(countries.read(1))
 countries.delete(5)
 countries.update(1, { name: 'Brasil', continent: 'América' })
 console.log(countries.read())
+
+console.log(countries.getByCountryName('BraSil'))
