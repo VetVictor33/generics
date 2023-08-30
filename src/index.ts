@@ -15,8 +15,8 @@ countries.create({ id: 4, name: 'Albânia', continent: 'Europa' })
 countries.create({ id: 5, name: 'Estados Unidos', continent: 'América do Norte' })
 
 console.log(countries.read())
-console.log(countries.read(0))
+console.log(countries.read(1))
 
-countries.delete(4)
-countries.update(0, { id: 1, name: 'Brasil', continent: 'América' })
+countries.delete(5)
+countries.update(1, { name: 'Brasil', continent: 'América' })
 console.log(countries.read())

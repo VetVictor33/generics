@@ -1,4 +1,6 @@
-export default class Table<T>{
+type TId = { id: number }
+
+export default class Table<T extends TId> {
   private data: T[]
 
   constructor() {
@@ -9,17 +11,34 @@ export default class Table<T>{
     this.data.push(data)
   }
 
-  public read(index: number = -1): T[] | T {
-    if (index === -1) return this.data
-    return this.data[index]
+  public read(id: number = -1): T[] | T {
+    if (id === -1) return this.data
+    const item = this.getItem(id)
+    return item
   }
 
-  public update(index: number, data: T) {
-    this.data.splice(index, 1, data)
+  public update(id: number, data: Omit<T, 'id'>) {
+    const item = this.getItem(id)
+    const index = this.getIndex(id)
+    const newData = Object.assign(item, data)
+    this.data.splice(index, 1, newData)
   }
 
-  public delete(index: number) {
+  public delete(id: number) {
+    const index = this.getIndex(id)
     this.data.splice(index, 1)
+  }
+
+  private getIndex(id: number): number {
+    const index = this.data.findIndex(({ id: itemId }) => itemId === id)
+    if (index === -1) throw new Error('Item not found!')
+    return index
+  }
+
+  private getItem(id: number): T {
+    const item = this.data.find(({ id: itemId }) => itemId === id)
+    if (!item) throw new Error('Item not found!')
+    return item
   }
 
 }
